@@ -154,12 +154,14 @@ const App: React.FC = () => {
                   user={currentUser}
                   tickets={tickets.filter(t => t.userId === currentUser.id)}
                   onCreateTicket={addTicket}
+                  theme={theme}
                 />
               ) : (
                 <AdminDashboard
                   user={currentUser!}
                   tickets={tickets}
                   onUpdateStatus={updateTicketStatus}
+                  theme={theme}
                 />
               )}
             </main>

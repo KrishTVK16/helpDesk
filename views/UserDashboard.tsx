@@ -7,9 +7,11 @@ interface UserDashboardProps {
   user: User;
   tickets: Ticket[];
   onCreateTicket: (ticket: any) => void;
+  theme: 'light' | 'dark';
 }
 
-const UserDashboard: React.FC<UserDashboardProps> = ({ user, tickets, onCreateTicket }) => {
+const UserDashboard: React.FC<UserDashboardProps> = ({ user, tickets, onCreateTicket, theme }) => {
+  const isDark = theme === 'dark';
   const [showForm, setShowForm] = useState(false);
   const [deepAnalysis, setDeepAnalysis] = useState<string | null>(null);
   const [isDeepThinking, setIsDeepThinking] = useState(false);
@@ -59,10 +61,10 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ user, tickets, onCreateTi
   };
 
   return (
-    <div className={`space-y-10 pb-20 max-w-7xl mx-auto rounded-[3rem] p-8 -mt-2 transition-all duration-700 bg-gradient-to-br from-red-50 via-white to-red-100`}>
+    <div className={`space-y-10 pb-20 max-w-7xl mx-auto rounded-[3rem] p-8 -mt-2 transition-all duration-700 ${isDark ? 'bg-slate-900 border border-slate-800' : 'bg-gradient-to-br from-red-50 via-white to-red-100'}`}>
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div className="text-center md:text-left">
-          <h1 className="text-3xl font-bold lowercase tracking-tight">Personal Station: {user.name}</h1>
+          <h1 className={`text-3xl font-bold lowercase tracking-tight ${isDark ? 'text-white' : 'text-gray-900'}`}>Personal Station: {user.name}</h1>
           <p className="text-[10px] text-red-800 font-bold uppercase tracking-[0.3em] mt-2">Operational Connectivity Active // Region: HQ-Main</p>
         </div>
         <button
@@ -82,8 +84,8 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ user, tickets, onCreateTi
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Side: Ticket List */}
         <div className="lg:col-span-2 space-y-8">
-          <div className="bg-white border border-gray-100 rounded-[3rem] p-8 lg:p-10 shadow-sm">
-            <h2 className="text-xl font-bold mb-8 flex items-center justify-center lg:justify-start gap-4">
+          <div className={`border rounded-[3rem] p-8 lg:p-10 shadow-sm ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-100'}`}>
+            <h2 className={`text-xl font-bold mb-8 flex items-center justify-center lg:justify-start gap-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
               <i className="fas fa-tower-broadcast text-red-600"></i> Active Transmissions
             </h2>
             <div className="space-y-4">
@@ -91,7 +93,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ user, tickets, onCreateTi
                 <div className="text-center py-24 opacity-20"><i className="fas fa-inbox text-6xl mb-6"></i><p className="text-xs uppercase font-bold tracking-[0.5em]">Zero Signals Detected</p></div>
               ) : (
                 tickets.map(t => (
-                  <div key={t.id} className="group p-6 bg-white/50 rounded-3xl border border-red-50 flex items-center justify-between hover:bg-red-50 hover:border-red-100 transition-all cursor-pointer">
+                  <div key={t.id} className={`group p-6 rounded-3xl border flex items-center justify-between transition-all cursor-pointer ${isDark ? 'bg-slate-900/50 border-slate-700 hover:bg-slate-700' : 'bg-white/50 border-red-50 hover:bg-red-50 hover:border-red-100'}`}>
                     <div className="flex items-center gap-6">
                       <div className={`w-3 h-3 rounded-full animate-pulse ${t.status === TicketStatus.OPEN ? 'bg-amber-400' : 'bg-green-400'}`}></div>
                       <div>
@@ -127,15 +129,56 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ user, tickets, onCreateTi
               {isDeepThinking ? 'Synthesizing...' : 'Run Neural Pass'}
             </button>
           </div>
+
+          {/* New Section: Suggested Solutions */}
+          <div className={`border rounded-[3rem] p-8 lg:p-10 shadow-sm ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-100'}`}>
+            <h2 className={`text-xl font-bold mb-6 lowercase tracking-tight ${isDark ? 'text-white' : 'text-gray-900'}`}>Suggested For You</h2>
+            <div className="grid md:grid-cols-2 gap-4">
+              {[
+                { icon: 'fa-wifi', title: 'Network Reset', desc: 'Auto-fix connection issues.' },
+                { icon: 'fa-key', title: 'Password Sync', desc: 'Secure credential update.' },
+                { icon: 'fa-print', title: 'Device Setup', desc: 'Install new hardware drivers.' },
+                { icon: 'fa-cloud', title: 'VPN Config', desc: 'Remote access troubleshooting.' }
+              ].map((item, i) => (
+                <div key={i} className={`p-4 rounded-2xl border flex items-center gap-4 cursor-pointer transition-colors ${isDark ? 'bg-slate-900 border-slate-700 hover:border-indigo-500' : 'bg-gray-50 border-gray-100 hover:border-red-200'}`}>
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isDark ? 'bg-slate-800 text-indigo-400' : 'bg-white text-red-500 shadow-sm'}`}><i className={`fas ${item.icon}`}></i></div>
+                  <div>
+                    <h4 className={`font-bold text-sm ${isDark ? 'text-white' : 'text-gray-900'}`}>{item.title}</h4>
+                    <p className={`text-[10px] ${isDark ? 'text-slate-400' : 'text-gray-500'}`}>{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* New Section: Activity Feed */}
+          <div className={`border rounded-[3rem] p-8 lg:p-10 shadow-sm ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-100'}`}>
+            <h2 className={`text-xl font-bold mb-6 lowercase tracking-tight ${isDark ? 'text-white' : 'text-gray-900'}`}>Recent Activity</h2>
+            <div className="space-y-4">
+              {[
+                { time: '2m ago', action: 'Signal T-1001', detail: 'Analysis Complete' },
+                { time: '1h ago', action: 'System Login', detail: 'Authorized from HQ-Main' },
+                { time: 'Yesterday', action: 'Password Change', detail: 'Security Rotation' }
+              ].map((act, i) => (
+                <div key={i} className="flex items-center justify-between py-2 border-b border-dashed border-gray-100/10">
+                  <div className="flex items-center gap-4">
+                    <span className={`text-[10px] font-mono font-bold ${isDark ? 'text-indigo-400' : 'text-red-400'}`}>{act.time}</span>
+                    <span className={`text-sm font-bold ${isDark ? 'text-slate-300' : 'text-gray-700'}`}>{act.action}</span>
+                  </div>
+                  <span className="text-[10px] uppercase tracking-widest opacity-50">{act.detail}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Right Side: Tools & Stats */}
         <div className="space-y-8">
-          <div className="bg-white p-10 rounded-[3rem] border border-gray-100 shadow-sm text-center">
+          <div className={`p-10 rounded-[3rem] border shadow-sm text-center ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-100'}`}>
             <h2 className="text-xs font-bold mb-10 uppercase tracking-[0.4em] text-gray-300">Veo Topology Gen</h2>
             <div
               onClick={() => fileInputRef.current?.click()}
-              className="h-56 bg-white border-2 border-dashed border-red-100 rounded-[2.5rem] mb-6 flex flex-col items-center justify-center cursor-pointer hover:border-red-300 hover:bg-red-50 transition-all overflow-hidden relative group"
+              className={`h-56 border-2 border-dashed rounded-[2.5rem] mb-6 flex flex-col items-center justify-center cursor-pointer transition-all overflow-hidden relative group ${isDark ? 'bg-slate-900 border-slate-600 hover:border-red-500 hover:bg-slate-800' : 'bg-white border-red-100 hover:border-red-300 hover:bg-red-50'}`}
             >
               {veoImage ? (
                 <img src={veoImage} className="w-full h-full object-cover transition-transform group-hover:scale-105" />
@@ -164,7 +207,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ user, tickets, onCreateTi
             <p className="mt-4 text-[9px] text-red-500 font-bold uppercase tracking-widest">Requires High-Performance Core API Key</p>
           </div>
 
-          <div className="bg-white p-10 rounded-[3rem] border border-gray-100 shadow-sm text-center">
+          <div className={`p-10 rounded-[3rem] border shadow-sm text-center ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-100'}`}>
             <h2 className="text-xs font-bold mb-8 uppercase tracking-[0.4em] text-gray-300">Station Health</h2>
             <div className="space-y-6">
               {[
@@ -172,9 +215,26 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ user, tickets, onCreateTi
                 { label: 'System Latency', status: '0.8ms', color: 'text-red-500' },
                 { label: 'Encrytion Core', status: 'AES-256-QM', color: 'text-slate-500' }
               ].map((stat, i) => (
-                <div key={i} className="flex justify-between items-center border-b border-gray-50 pb-4">
+                <div key={i} className={`flex justify-between items-center border-b pb-4 ${isDark ? 'border-slate-700' : 'border-gray-50'}`}>
                   <span className="text-[10px] font-bold text-red-700 uppercase tracking-widest">{stat.label}</span>
                   <span className={`text-[10px] font-black uppercase ${stat.color}`}>{stat.status}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className={`p-10 rounded-[3rem] border shadow-sm text-center ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-100'}`}>
+            <h2 className="text-xs font-bold mb-8 uppercase tracking-[0.4em] text-gray-300">Live Status</h2>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { name: 'Email', status: 'Online' },
+                { name: 'VPN', status: 'Online' },
+                { name: 'ERP', status: 'Maint.' },
+                { name: 'Files', status: 'Online' }
+              ].map((s, i) => (
+                <div key={i} className={`p-4 rounded-2xl ${isDark ? 'bg-slate-900' : 'bg-gray-50'}`}>
+                  <div className={`text-[9px] font-bold uppercase tracking-widest mb-1 ${isDark ? 'text-slate-400' : 'text-gray-400'}`}>{s.name}</div>
+                  <div className={`text-xs font-black uppercase ${s.status === 'Online' ? 'text-green-500' : 'text-amber-500'}`}>{s.status}</div>
                 </div>
               ))}
             </div>
