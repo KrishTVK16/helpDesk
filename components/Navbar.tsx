@@ -34,31 +34,35 @@ const Navbar: React.FC<NavbarProps> = ({
 
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center space-x-8 text-[12px] font-medium lowercase">
-          {/* Homes Dropdown */}
-          <div className="relative group h-16 flex items-center">
-            <button className="flex items-center gap-1.5 text-red-700 hover:text-blue-600 transition-colors">
-              Home <i className="fas fa-chevron-down text-[8px] transition-transform group-hover:rotate-180"></i>
-            </button>
-            <div className={`absolute top - 16 left - 0 w - 56 border rounded - 2xl shadow - 2xl p - 2 opacity - 0 invisible group - hover: opacity - 100 group - hover:visible transition - all duration - 300 translate - y - 2 group - hover: translate - y - 0 ${isDark ? 'bg-slate-900 border-slate-700' : 'bg-white border-gray-100'} `}>
-              <button onClick={onGoHome} className="w-full text-left px-4 py-3 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Landing Page</button>
-            </div>
-          </div>
+          {!user && (
+            <>
+              {/* Homes Dropdown */}
+              <div className="relative group h-16 flex items-center">
+                <button className="flex items-center gap-1.5 text-red-700 hover:text-blue-600 transition-colors">
+                  Home <i className="fas fa-chevron-down text-[8px] transition-transform group-hover:rotate-180"></i>
+                </button>
+                <div className={`absolute top-16 left-0 w-56 border rounded-2xl shadow-2xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 ${isDark ? 'bg-slate-900 border-slate-700' : 'bg-white border-gray-100'} `}>
+                  <button onClick={onGoHome} className="w-full text-left px-4 py-3 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">Landing Page</button>
+                </div>
+              </div>
 
-          {/* Dashboards Dropdown */}
-          <div className="relative group h-16 flex items-center">
-            <button className="flex items-center gap-1.5 text-blue-600 transition-colors font-bold">
-              Dashboards <i className="fas fa-chevron-down text-[8px] transition-transform group-hover:rotate-180"></i>
-            </button>
-            <div className={`absolute top - 16 left - 0 w - 56 border rounded - 2xl shadow - 2xl p - 2 opacity - 0 invisible group - hover: opacity - 100 group - hover:visible transition - all duration - 300 translate - y - 2 group - hover: translate - y - 0 ${isDark ? 'bg-slate-900 border-slate-700' : 'bg-white border-gray-100'} `}>
-              <button onClick={onSignInUser} className="w-full text-left px-4 py-3 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">User Station</button>
-              <button onClick={onSignInAdmin} className="w-full text-left px-4 py-3 rounded-xl hover:bg-indigo-600 hover:text-white transition-colors">Admin Core</button>
-            </div>
-          </div>
+              {/* Dashboards Dropdown */}
+              <div className="relative group h-16 flex items-center">
+                <button className="flex items-center gap-1.5 text-blue-600 transition-colors font-bold">
+                  Dashboards <i className="fas fa-chevron-down text-[8px] transition-transform group-hover:rotate-180"></i>
+                </button>
+                <div className={`absolute top-16 left-0 w-56 border rounded-2xl shadow-2xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 ${isDark ? 'bg-slate-900 border-slate-700' : 'bg-white border-gray-100'} `}>
+                  <button onClick={onSignInUser} className="w-full text-left px-4 py-3 rounded-xl hover:bg-blue-600 hover:text-white transition-colors">User Station</button>
+                  <button onClick={onSignInAdmin} className="w-full text-left px-4 py-3 rounded-xl hover:bg-indigo-600 hover:text-white transition-colors">Admin Core</button>
+                </div>
+              </div>
 
-          <button onClick={onGoHome} className="text-red-700 hover:text-blue-600">Contact Us</button>
+              <button onClick={onGoHome} className="text-red-700 hover:text-blue-600">Contact Us</button>
+            </>
+          )}
 
           <div className="flex items-center space-x-4 pl-4 border-l border-gray-100/10 h-full">
-            <button onClick={toggleTheme} className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-red-400 hover:text-blue-600"><i className={`fas fa - ${isDark ? 'sun' : 'moon'} `}></i></button>
+            <button onClick={toggleTheme} className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-red-400 hover:text-blue-600"><i className={`fas fa-${isDark ? 'sun' : 'moon'}`}></i></button>
             {user ? (
               <div className="flex items-center space-x-3">
                 <div className="text-right">
@@ -80,7 +84,7 @@ const Navbar: React.FC<NavbarProps> = ({
         {/* Mobile Header Controls */}
         <div className="lg:hidden flex items-center gap-4">
           <button onClick={toggleTheme} className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 hover:text-blue-600 transition-all">
-            <i className={`fas fa - ${isDark ? 'sun' : 'moon'} `}></i>
+            <i className={`fas fa-${isDark ? 'sun' : 'moon'}`}></i>
           </button>
 
           {user && (
