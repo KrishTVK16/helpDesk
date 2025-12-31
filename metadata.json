@@ -1,0 +1,8 @@
+
+{
+  "name": "HelpDesk Pro - Intelligent IT Support",
+  "description": "An advanced IT support platform featuring Veo-powered animations, deep-thinking AI diagnostics, and enterprise-grade fleet management.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
