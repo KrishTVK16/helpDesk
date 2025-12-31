@@ -57,12 +57,24 @@ export type AppView = 'landing' | 'dashboard' | 'login' | 'register';
 export type Theme = 'light' | 'dark';
 
 const App: React.FC = () => {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User | null>(() => {
+    const saved = localStorage.getItem('helpdesk_user');
+    return saved ? JSON.parse(saved) : null;
+  });
   const [tickets, setTickets] = useState<Ticket[]>(INITIAL_TICKETS);
-  const [view, setView] = useState<AppView>('landing');
-  const [landingSubView, setLandingSubView] = useState<LandingSubView>('home');
-  const [landingStyle, setLandingStyle] = useState<LandingStyle>('corporate');
-  const [theme, setTheme] = useState<Theme>('light');
+  const [view, setView] = useState<AppView>(() => (localStorage.getItem('helpdesk_view') as AppView) || 'landing');
+
+  // State with LocalStorage Persistence
+  const [landingSubView, setLandingSubView] = useState<LandingSubView>(() => (localStorage.getItem('helpdesk_sub_view') as LandingSubView) || 'home');
+  const [landingStyle, setLandingStyle] = useState<LandingStyle>(() => (localStorage.getItem('helpdesk_landing_style') as LandingStyle) || 'corporate');
+  const [theme, setTheme] = useState<Theme>(() => (localStorage.getItem('helpdesk_theme') as Theme) || 'light');
+
+  // Persistence Effects
+  useEffect(() => { localStorage.setItem('helpdesk_user', JSON.stringify(currentUser)); }, [currentUser]);
+  useEffect(() => { localStorage.setItem('helpdesk_view', view); }, [view]);
+  useEffect(() => { localStorage.setItem('helpdesk_sub_view', landingSubView); }, [landingSubView]);
+  useEffect(() => { localStorage.setItem('helpdesk_landing_style', landingStyle); }, [landingStyle]);
+  useEffect(() => { localStorage.setItem('helpdesk_theme', theme); }, [theme]);
   const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
@@ -70,6 +82,10 @@ const App: React.FC = () => {
       setShowBackToTop(window.scrollY > 400);
     };
     window.addEventListener('scroll', handleScroll);
+
+    // Force scroll to top on mount/refresh
+    window.scrollTo(0, 0);
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -218,9 +234,11 @@ const App: React.FC = () => {
               <div>
                 <h4 className={`font-bold mb-4 lowercase ${isDarkUI ? 'text-white' : 'text-gray-900'}`}>support</h4>
                 <ul className="text-sm space-y-2 lowercase">
-                  <li><button onClick={() => { setLandingSubView('home'); scrollToTop(); }}>home</button></li>
-                  <li><button onClick={() => { setLandingSubView('faq'); scrollToTop(); }}>faq</button></li>
-                  <li><button onClick={() => { setLandingSubView('contact'); scrollToTop(); }}>contact us</button></li>
+                  <li><button onClick={() => { setLandingSubView('home'); scrollToTop(); }} className={`transition-colors ${landingSubView === 'home' ? 'text-red-600 font-bold' : 'text-gray-500 hover:text-blue-600'}`}>home</button></li>
+                  <li><button onClick={() => { setLandingSubView('services'); scrollToTop(); }} className={`transition-colors ${landingSubView === 'services' ? 'text-red-600 font-bold' : 'text-gray-500 hover:text-blue-600'}`}>Services</button></li>
+                  <li><button onClick={() => { setLandingSubView('about'); scrollToTop(); }} className={`transition-colors ${landingSubView === 'about' ? 'text-red-600 font-bold' : 'text-gray-500 hover:text-blue-600'}`}>About</button></li>
+                  <li><button onClick={() => { setLandingSubView('faq'); scrollToTop(); }} className={`transition-colors ${landingSubView === 'faq' ? 'text-red-600 font-bold' : 'text-gray-500 hover:text-blue-600'}`}>FAQ</button></li>
+                  <li><button onClick={() => { setLandingSubView('contact'); scrollToTop(); }} className={`transition-colors ${landingSubView === 'contact' ? 'text-red-600 font-bold' : 'text-gray-500 hover:text-blue-600'}`}>Contact Us</button></li>
                 </ul>
               </div>
               <div>

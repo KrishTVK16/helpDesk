@@ -16,8 +16,8 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ theme, onBack, onGoToLogin 
       <div className="max-w-md w-full mx-auto">
         <div className="text-center">
           <button onClick={onBack} className="inline-flex items-center space-x-2 group mb-12">
-            <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-indigo-500/20">
-              <i className="fas fa-users text-xl"></i>
+            <div className="w-12 h-12 bg-red-600 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-red-500/20">
+              <i className="fas fa-headset text-xl"></i>
             </div>
             <span className={`text-3xl font-black tracking-tighter ${isDark ? 'text-white' : 'text-red-900'}`}>HelpDesk</span>
           </button>

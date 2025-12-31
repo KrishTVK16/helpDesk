@@ -19,16 +19,28 @@ const LiveTicker = ({ isDark }: { isDark: boolean }) => (
 
 // --- HOME 1 (CORPORATE) ---
 const CorporateHero = ({ onGoToLogin, isDark }: any) => (
-  <section className={`min-h-[calc(100vh-4rem)] flex items-center pt-20 pb-8 md:py-20 lg:py-32 ${isDark ? 'bg-slate-900 text-white' : 'bg-gradient-to-br from-red-50 via-white to-red-100 text-red-900'}`}>
-    <div className="container mx-auto px-4 text-center max-w-5xl">
-      <div className="inline-block px-4 py-1.5 bg-red-50 border border-red-100 rounded-full mb-6">
-        <span className="text-red-600 text-[10px] font-bold uppercase tracking-widest">Enterprise Class IT Support</span>
+  <section className={`min-h-[calc(100vh-4rem)] flex items-center pt-20 pb-8 md:py-20 lg:py-32 relative overflow-hidden`}>
+    {/* Hero Background Image */}
+    <div className="absolute inset-0 z-0">
+      <img
+        src="/helpDesk/images/hero_server_room.png"
+        alt="Modern Server Room"
+        className="w-full h-full object-cover"
+      />
+      {/* Light/Dark Mode Overlay for Text Readability - Reduced Opacity for better visibility */}
+      <div className={`absolute inset-0 ${isDark ? 'bg-slate-900/60' : 'bg-white/60'} backdrop-blur-[1px]`}></div>
+      <div className={`absolute inset-0 bg-gradient-to-r ${isDark ? 'from-slate-900 via-slate-900/80' : 'from-white via-white/80'} to-transparent`}></div>
+    </div>
+
+    <div className="container mx-auto px-4 text-center max-w-5xl relative z-10">
+      <div className="inline-block px-4 py-1.5 bg-red-50/10 border border-red-500/20 rounded-full mb-6 backdrop-blur-sm">
+        <span className="text-red-500 text-[10px] font-bold uppercase tracking-widest">Enterprise Class IT Support</span>
       </div>
-      <h1 className="text-4xl md:text-6xl lg:text-7xl mb-6 leading-[1.1] tracking-tight font-bold lowercase">Fast IT Support <br /><span className="text-red-600">You Can Trust.</span></h1>
-      <p className="text-lg text-red-700/80 mb-8 max-w-2xl mx-auto leading-relaxed lowercase">We manage your technology infrastructure so you can focus on scale. Reliable, secure, and human-centric technical governance for modern business.</p>
+      <h1 className={`text-4xl md:text-6xl lg:text-7xl mb-6 leading-[1.1] tracking-tight font-bold lowercase ${isDark ? 'text-white' : 'text-gray-900'}`}>Fast IT Support <br /><span className="text-red-600">You Can Trust.</span></h1>
+      <p className={`text-lg mb-8 max-w-2xl mx-auto leading-relaxed lowercase ${isDark ? 'text-slate-400' : 'text-gray-600'}`}>We manage your technology infrastructure so you can focus on scale. Reliable, secure, and human-centric technical governance for modern business.</p>
       <div className="flex flex-col sm:flex-row justify-center gap-4">
         <button onClick={onGoToLogin} className="w-full sm:w-64 bg-red-600 text-white px-8 py-4 rounded-2xl text-[12px] font-bold lowercase hover:bg-red-700 shadow-2xl shadow-red-500/30 transition-all active:scale-95">Establish Connection</button>
-        <button className={`w-full sm:w-64 border px-8 py-4 rounded-2xl text-[12px] font-bold lowercase transition-all ${isDark ? 'border-slate-800 hover:bg-slate-800' : 'border-red-200 text-red-800 hover:bg-red-50'}`}>View Fleet</button>
+        <button className={`w-full sm:w-64 border px-8 py-4 rounded-2xl text-[12px] font-bold lowercase transition-all ${isDark ? 'border-slate-800 hover:bg-slate-800 text-white' : 'border-red-200 text-red-800 hover:bg-red-50'}`}>View Fleet</button>
       </div>
     </div>
   </section>
@@ -38,7 +50,17 @@ const CorporateHero = ({ onGoToLogin, isDark }: any) => (
 // --- HOME 2 (MODERN AI) ---
 const ModernHero = ({ onGoToLogin, isDark }: any) => (
   <section className={`min-h-[calc(100vh-4rem)] flex items-center pt-20 pb-8 md:py-20 lg:py-32 relative overflow-hidden ${isDark ? 'bg-[#020617] text-white' : 'bg-gradient-to-br from-red-50 via-white to-red-100 text-red-950'}`}>
-    <div className={`absolute top-0 left-0 w-full h-full opacity-10 [background-size:20px_20px] ${isDark ? 'bg-[radial-gradient(#1e293b_1px,transparent_1px)]' : 'bg-[radial-gradient(#991b1b_1px,transparent_1px)]'}`}></div>
+    {/* Modern Hero Background Image */}
+    <div className="absolute inset-0 z-0">
+      <img
+        src="/helpDesk/images/history_modern_dashboard.png"
+        alt="Neural Core"
+        className={`w-full h-full object-cover transition-opacity duration-700 ${isDark ? 'opacity-50 mix-blend-overlay' : 'opacity-60'}`}
+      />
+      <div className={`absolute inset-0 ${isDark ? 'bg-[#020617]/80' : 'bg-white/70'} backdrop-blur-[1px]`}></div>
+    </div>
+
+    <div className={`absolute top-0 left-0 w-full h-full opacity-10 [background-size:20px_20px] ${isDark ? 'bg-[radial-gradient(#1e293b_1px,transparent_1px)]' : 'bg-[radial-gradient(#991b1b_1px,transparent_1px)]'} z-0`}></div>
     <div className="container mx-auto px-4 text-center max-w-5xl relative z-10">
       <div className={`inline-flex items-center space-x-3 px-6 py-2 rounded-full mb-8 backdrop-blur-sm ${isDark ? 'bg-indigo-500/10 border border-indigo-500/20' : 'bg-red-500/10 border border-red-500/20'}`}>
         <span className={`w-2 h-2 rounded-full animate-ping ${isDark ? 'bg-indigo-400' : 'bg-red-500'}`}></span>
@@ -83,7 +105,7 @@ const CorporateFeatures = () => (
 );
 
 const CorporateWhyUs = () => (
-  <section className="py-20 bg-white">
+  <section className="py-20 bg-white overflow-hidden">
     <div className="container mx-auto px-4 max-w-6xl flex flex-col md:flex-row items-center gap-12">
       <div className="md:w-1/2">
         <div className="inline-block px-4 py-1.5 bg-red-50 text-red-700 border border-red-100 rounded-full text-[10px] font-bold uppercase tracking-widest mb-6">Proven Track Record</div>
@@ -97,10 +119,25 @@ const CorporateWhyUs = () => (
           ))}
         </ul>
       </div>
-      <div className="md:w-1/2 grid grid-cols-2 gap-4">
-        <div className="bg-red-50 p-6 rounded-2xl text-center border border-red-100"><h4 className="text-4xl font-bold text-red-600 mb-2">15+</h4><p className="text-xs font-bold uppercase tracking-widest text-red-400">Years Experience</p></div>
-        <div className="bg-red-50 p-6 rounded-2xl text-center border border-red-100"><h4 className="text-4xl font-bold text-red-600 mb-2">500+</h4><p className="text-xs font-bold uppercase tracking-widest text-red-400">Enterprise Clients</p></div>
-        <div className="bg-red-50 p-6 rounded-2xl text-center border border-red-100 col-span-2"><h4 className="text-4xl font-bold text-red-600 mb-2">24/7</h4><p className="text-xs font-bold uppercase tracking-widest text-red-400">Global Coverage</p></div>
+      <div className="md:w-1/2 relative">
+        <div className="absolute inset-0 bg-red-600 rounded-[2.5rem] rotate-3 opacity-10"></div>
+        <img
+          src="/helpDesk/images/engineer_fixing_server.png"
+          alt="Engineer working on server"
+          className="rounded-[2rem] shadow-2xl relative z-10 rotate-[-2deg] transition-transform hover:rotate-0 duration-500 border-4 border-white"
+        />
+        {/* Floating Stats Card */}
+        <div className="absolute -bottom-8 -left-8 bg-white p-6 rounded-2xl shadow-xl border border-red-50 z-20 animate-bounce [animation-duration:3s]">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-red-600 font-bold">
+              <i className="fas fa-bolt"></i>
+            </div>
+            <div>
+              <p className="text-xs font-bold uppercase text-gray-500">Avg Response</p>
+              <p className="text-xl font-bold text-gray-900">12 Mins</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -137,15 +174,34 @@ const CorporateTestimonials = () => (
       <h2 className="text-3xl font-bold lowercase mb-16 text-center text-red-950">Trusted Partners</h2>
       <div className="grid md:grid-cols-2 gap-8">
         {[
-          { quote: "HelpDesk Pro transformed our IT from a bottleneck into a strategic asset.", author: "Marcus Ray", role: "CTO, FinCorp" },
-          { quote: "The response times are incredible. It feels like they are in the building with us.", author: "Elena V.", role: "Ops Director, TechFlow" }
+          {
+            quote: "HelpDesk Pro transformed our IT from a bottleneck into a strategic asset.",
+            author: "Marcus Ray",
+            role: "CTO, FinCorp",
+            bg: "/helpDesk/images/testimonial_bg_tech_city.png"
+          },
+          {
+            quote: "The response times are incredible. It feels like they are in the building with us.",
+            author: "Elena V.",
+            role: "Ops Director, TechFlow",
+            bg: "/helpDesk/images/testimonial_bg_office.png"
+          }
         ].map((t, i) => (
-          <div key={i} className="bg-red-50/50 p-10 rounded-3xl border border-red-100">
-            <div className="flex text-red-400 mb-6 gap-1"><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i></div>
-            <p className="text-lg leading-relaxed mb-6 text-red-900 font-medium">"{t.quote}"</p>
-            <div>
-              <p className="font-bold text-sm uppercase tracking-widest text-red-950">{t.author}</p>
-              <p className="text-xs text-red-500 font-bold uppercase tracking-widest mt-1">{t.role}</p>
+          <div key={i} className="relative p-10 rounded-3xl overflow-hidden group hover:shadow-2xl transition-all duration-500">
+            {/* Background Image */}
+            <div className="absolute inset-0">
+              <img src={t.bg} alt="Background" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+              <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/70 transition-colors"></div>
+            </div>
+
+            {/* Content */}
+            <div className="relative z-10">
+              <div className="flex text-yellow-500 mb-6 gap-1"><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i><i className="fas fa-star"></i></div>
+              <p className="text-xl leading-relaxed mb-6 text-white font-medium">"{t.quote}"</p>
+              <div>
+                <p className="font-bold text-sm uppercase tracking-widest text-white">{t.author}</p>
+                <p className="text-xs text-red-400 font-bold uppercase tracking-widest mt-1">{t.role}</p>
+              </div>
             </div>
           </div>
         ))}
@@ -223,8 +279,12 @@ const ModernStats = ({ isDark }: any) => (
 
         <div className={`aspect-square rounded-[3rem] p-8 border-4 border-dashed relative overflow-hidden flex items-center justify-center ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-red-200'}`}>
           <div className={`absolute inset-0 bg-grid-slate-800/[0.05] [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.5))] dark:[mask-image:linear-gradient(0deg,rgba(255,255,255,0.1),transparent)]`}></div>
-          <div className={`w-64 h-64 rounded-full flex items-center justify-center animate-pulse ${isDark ? 'bg-indigo-500/20' : 'bg-red-500/10'}`}>
-            <i className={`fas fa-network-wired text-6xl ${isDark ? 'text-indigo-500' : 'text-red-500'}`}></i>
+          <div className="relative z-10 w-full h-full flex items-center justify-center p-4">
+            <img
+              src="/helpDesk/images/modern_ai_node.png"
+              alt="AI Neural Node"
+              className="w-full h-full object-contain drop-shadow-2xl animate-pulse"
+            />
           </div>
         </div>
       </div>
@@ -258,7 +318,10 @@ const ModernTimeline = ({ isDark }: any) => (
 
 const ModernCTA = ({ onRegister, isDark }: any) => (
   <section className={`py-32 relative overflow-hidden ${isDark ? 'bg-[#020617]' : 'bg-red-900'}`}>
-    <div className={`absolute inset-0 bg-gradient-to-r blur-3xl opacity-30 ${isDark ? 'from-indigo-600/20 to-blue-600/20' : 'from-red-500/20 to-orange-500/20'}`}></div>
+    <div className="absolute inset-0 z-0">
+      <img src="/helpDesk/images/testimonial_bg_tech_city.png" alt="City Grid" className="w-full h-full object-cover opacity-30 mix-blend-overlay" />
+    </div>
+    <div className={`absolute inset-0 bg-gradient-to-r blur-3xl opacity-30 ${isDark ? 'from-indigo-600/20 to-blue-600/20' : 'from-red-500/20 to-orange-500/20'} z-0`}></div>
     <div className="container mx-auto px-4 relative z-10 text-center">
       <h2 className="text-5xl md:text-7xl font-bold text-white lowercase tracking-tight mb-8">Deploy The Future</h2>
       <p className={`text-lg mb-12 max-w-xl mx-auto ${isDark ? 'text-indigo-200' : 'text-red-100'}`}>Initialize your workspace with the most advanced autonomous IT stack ever built.</p>
@@ -553,11 +616,19 @@ const LandingPage: React.FC<LandingPageProps> = ({
             </div>
 
             <div className="container mx-auto px-4 max-w-5xl pb-20 space-y-24">
-              {/* Stats Grid */}
+              {/* Stats Grid with Layered Images */}
               <div className="grid md:grid-cols-2 gap-12 items-center animate-in fade-in slide-in-from-bottom-8 duration-700">
-                <div className={`aspect-square rounded-[3rem] ${isDark ? 'bg-slate-800' : 'bg-red-50'} flex items-center justify-center text-5xl ${isDark ? 'text-slate-300' : 'text-red-200'}`}>
-                  <i className="fas fa-building"></i>
+                <div className="relative h-[400px]">
+                  {/* Layer 1: Vintage Bottom Layer (-12deg) */}
+                  <div className="absolute top-10 left-10 w-[70%] h-[60%] rounded-2xl overflow-hidden shadow-2xl rotate-[-12deg] border-4 border-white z-0">
+                    <img src="/helpDesk/images/history_vintage_server.png" alt="Vintage Server Room" className="w-full h-full object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-500" />
+                  </div>
+                  {/* Layer 2: Modern Top Layer (12deg) */}
+                  <div className="absolute bottom-10 right-10 w-[70%] h-[60%] rounded-2xl overflow-hidden shadow-2xl rotate-[12deg] border-4 border-white z-10">
+                    <img src="/helpDesk/images/history_modern_dashboard.png" alt="Modern Command Center" className="w-full h-full object-cover" />
+                  </div>
                 </div>
+
                 <div className="text-center md:text-left">
                   <h2 className="text-3xl font-bold lowercase mb-6">Since 2010</h2>
                   <p className={`leading-relaxed mb-6 ${isDark ? 'text-slate-500' : 'text-red-800/70'}`}>Founded on the principle that IT support needed a revolution. We started as a small team of engineers tired of the "break-fix" model. Today, we are a global partner for companies that value reliability.</p>
@@ -626,18 +697,24 @@ const LandingPage: React.FC<LandingPageProps> = ({
               <div className="text-center animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500">
                 <h2 className="text-3xl font-bold lowercase mb-12">Leadership Team</h2>
                 <div className="grid md:grid-cols-3 gap-8">
-                  {['CEO', 'CTO', 'COO'].map((role, i) => (
+                  {[
+                    { role: 'CEO', name: 'Alex V.', img: '/helpDesk/images/team_ceo_male.png' },
+                    { role: 'CTO', name: 'James L.', img: '/helpDesk/images/team_cto_female.png' },
+                    { role: 'COO', name: 'Michael R.', img: '/helpDesk/images/team_coo_male.png' }
+                  ].map((leader, i) => (
                     <div key={i} className={`p-8 rounded-3xl border transition-all hover:scale-105 ${isDark ? 'border-slate-800 bg-slate-900 hover:border-indigo-500/30' : 'border-red-100 bg-white hover:border-red-200'}`}>
-                      <div className="w-24 h-24 bg-red-600 rounded-full mx-auto mb-6 flex items-center justify-center text-white text-2xl shadow-lg"><i className="fas fa-user"></i></div>
-                      <h3 className="font-bold text-lg mb-1">Executive Name</h3>
-                      <p className="text-xs font-bold uppercase tracking-widest text-red-600">{role}</p>
+                      <div className="w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden border-4 border-red-50 shadow-lg">
+                        <img src={leader.img} alt={leader.role} className="w-full h-full object-cover" />
+                      </div>
+                      <h3 className="font-bold text-lg mb-1">{leader.name}</h3>
+                      <p className="text-xs font-bold uppercase tracking-widest text-red-600">{leader.role}</p>
                     </div>
                   ))}
                 </div>
-              </div>
 
-              <div className="text-center pt-10">
-                <button onClick={onGoToRegister} className="bg-red-600 text-white px-8 py-4 rounded-xl font-bold lowercase hover:bg-red-700 transition-all shadow-xl shadow-red-500/20">Join Our Team</button>
+                <div className="text-center pt-10">
+                  <button onClick={onGoToRegister} className="bg-red-600 text-white px-8 py-4 rounded-xl font-bold lowercase hover:bg-red-700 transition-all shadow-xl shadow-red-500/20">Join Our Team</button>
+                </div>
               </div>
             </div>
           </div>
@@ -786,14 +863,28 @@ const LandingPage: React.FC<LandingPageProps> = ({
                   <h2 className="text-2xl font-bold lowercase mb-6">Global Hubs</h2>
                 </div>
                 <div className="grid md:grid-cols-4 gap-6">
-                  {OFFICE_LOCATIONS.map((loc, i) => (
-                    <div key={i} className={`p-6 rounded-2xl border text-center ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-red-100'}`}>
-                      <i className={`fas fa-building text-2xl mb-4 ${isDark ? 'text-indigo-500' : 'text-red-500'}`}></i>
-                      <h3 className="font-bold text-lg mb-1">{loc.city}</h3>
-                      <p className={`text-sm mb-2 ${isDark ? 'text-slate-400' : 'text-red-800/60'}`}>{loc.address}</p>
-                      <span className={`text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded border ${isDark ? 'border-slate-700 text-slate-500' : 'border-red-100 text-red-400'}`}>{loc.timezone}</span>
-                    </div>
-                  ))}
+                  {OFFICE_LOCATIONS.map((loc, i) => {
+                    const imgMap = {
+                      'San Francisco': '/helpDesk/images/hub_sf.png',
+                      'London': '/helpDesk/images/hub_london.png',
+                      'Singapore': '/helpDesk/images/hub_singapore.png',
+                      'Sydney': '/helpDesk/images/hub_sydney.png'
+                    };
+                    return (
+                      <div key={i} className={`group rounded-2xl overflow-hidden border text-center transition-all hover:shadow-xl ${isDark ? 'bg-slate-900 border-slate-800' : 'bg-white border-red-100'}`}>
+                        {/* City Thumbnail */}
+                        <div className="h-32 overflow-hidden relative">
+                          <img src={imgMap[loc.city as keyof typeof imgMap]} alt={loc.city} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                          <div className={`absolute inset-0 ${isDark ? 'bg-slate-900/50' : 'bg-red-900/10'}`}></div>
+                        </div>
+                        <div className="p-6">
+                          <h3 className="font-bold text-lg mb-1">{loc.city}</h3>
+                          <p className={`text-sm mb-2 ${isDark ? 'text-slate-400' : 'text-red-800/60'}`}>{loc.address}</p>
+                          <span className={`text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded border ${isDark ? 'border-slate-700 text-slate-500' : 'border-red-100 text-red-400'}`}>{loc.timezone}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -820,7 +911,7 @@ const LandingPage: React.FC<LandingPageProps> = ({
           <nav className="hidden lg:flex items-center space-x-8 text-[12px] font-medium lowercase">
             {/* Homes Dropdown */}
             <div className="relative group h-16 flex items-center">
-              <button className={`flex items-center gap-1.5 transition-colors ${subView === 'home' ? 'text-blue-600' : 'text-red-700 hover:text-blue-600'}`}>
+              <button className={`flex items-center gap-1.5 transition-colors ${subView === 'home' ? 'text-red-600 font-bold' : 'text-gray-700 hover:text-blue-600'}`}>
                 Home <i className="fas fa-chevron-down text-[8px] transition-transform group-hover:rotate-180"></i>
               </button>
               <div className={`absolute top-16 left-0 w-56 border rounded-2xl shadow-2xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 ${isDark ? 'bg-slate-900 border-slate-700' : 'bg-white border-gray-100'}`}>
@@ -831,7 +922,7 @@ const LandingPage: React.FC<LandingPageProps> = ({
 
             {/* Dashboards Dropdown */}
             <div className="relative group h-16 flex items-center">
-              <button className="flex items-center gap-1.5 text-red-700 hover:text-blue-600 transition-colors">
+              <button className="flex items-center gap-1.5 text-gray-500 hover:text-blue-600 transition-colors">
                 Dashboards <i className="fas fa-chevron-down text-[8px] transition-transform group-hover:rotate-180"></i>
               </button>
               <div className={`absolute top-16 left-0 w-56 border rounded-2xl shadow-2xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 ${isDark ? 'bg-slate-900 border-slate-700' : 'bg-white border-gray-100'}`}>
@@ -840,10 +931,10 @@ const LandingPage: React.FC<LandingPageProps> = ({
               </div>
             </div>
 
-            <button onClick={() => setSubView('services')} className={subView === 'services' ? 'text-blue-600' : 'text-gray-500 hover:text-blue-600'}>Services</button>
-            <button onClick={() => setSubView('about')} className={subView === 'about' ? 'text-blue-600' : 'text-gray-500 hover:text-blue-600'}>About</button>
-            <button onClick={() => setSubView('faq')} className={subView === 'faq' ? 'text-blue-600' : 'text-gray-500 hover:text-blue-600'}>FAQ</button>
-            <button onClick={() => setSubView('contact')} className={subView === 'contact' ? 'text-blue-600' : 'text-gray-500 hover:text-blue-600'}>Contact Us</button>
+            <button onClick={() => setSubView('services')} className={`transition-colors ${subView === 'services' ? 'text-red-600 font-bold' : 'text-gray-500 hover:text-blue-600'}`}>Services</button>
+            <button onClick={() => setSubView('about')} className={`transition-colors ${subView === 'about' ? 'text-red-600 font-bold' : 'text-gray-500 hover:text-blue-600'}`}>About</button>
+            <button onClick={() => setSubView('faq')} className={`transition-colors ${subView === 'faq' ? 'text-red-600 font-bold' : 'text-gray-500 hover:text-blue-600'}`}>FAQ</button>
+            <button onClick={() => setSubView('contact')} className={`transition-colors ${subView === 'contact' ? 'text-red-600 font-bold' : 'text-gray-500 hover:text-blue-600'}`}>Contact Us</button>
 
             <div className="flex items-center space-x-2 pl-4 border-l border-gray-100/10 h-full">
               <button onClick={toggleTheme} className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400 hover:text-blue-600 transition-all"><i className={`fas fa-${theme === 'dark' ? 'sun' : 'moon'}`}></i></button>
